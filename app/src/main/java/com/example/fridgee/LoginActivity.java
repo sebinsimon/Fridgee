@@ -11,19 +11,19 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "Login Activity";
-    private Button signupBtn, loginBtn;
-    private TextView forgotPass;
+    private Button loginBtn;
+    private TextView signup, forgotPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        signupBtn = findViewById(R.id.signupBtn);
-        forgotPass = findViewById(R.id.forgotPassLB);
-        loginBtn = findViewById(R.id.loginBtn);
+        signup = findViewById(R.id.login_signup);
+        forgotPass = findViewById(R.id.login_forgot_password);
+        loginBtn = findViewById(R.id.login_button);
 
-        signupBtn.setOnClickListener(view -> {
+        signup.setOnClickListener(view -> {
             Intent signupActivity = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(signupActivity);
             Log.d(TAG, "onCreate: Started Signup Activity");
