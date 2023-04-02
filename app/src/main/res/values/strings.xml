@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Fridgee</string>
-    <string name="enter_your_registered_email_below_to_receive_password_reset_link">Enter your registered email below to receive password reset link</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
 </resources>

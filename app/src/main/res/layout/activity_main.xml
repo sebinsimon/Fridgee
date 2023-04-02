@@ -35,7 +35,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:id="@+id/navigationView"
+        android:id="@+id/nav_menu"
+        app:menu="@menu/nav_menu"
+        app:itemIconTint="#B2D59C"
         app:headerLayout="@layout/header_layout">
     </com.google.android.material.navigation.NavigationView>
 
