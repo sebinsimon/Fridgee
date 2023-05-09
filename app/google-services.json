@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "110723098221",
+    "firebase_url": "https://fridgee-db8b2-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fridgee-db8b2",
+    "storage_bucket": "fridgee-db8b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110723098221:android:e5c1d3bd4b4b2b839f4164",
+        "android_client_info": {
+          "package_name": "com.example.fridgee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110723098221-rs3j7ksd9p1qvimihlrricuf6bmiu8uj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI1fT0evkj-afcW8ELfxm7TQt-XMKMDsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110723098221-lqip270djn6habvf6jhhpqciv99npubb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
