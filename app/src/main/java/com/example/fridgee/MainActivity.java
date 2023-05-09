@@ -5,24 +5,30 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
+    ViewPager2 viewPager2;
+    TabLayout tabLayout;
+    DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)){
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -31,45 +37,78 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        drawerLayout = findViewById(R.id.drawerLayout);
+        viewPager2 = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tab_layout);
+
+        viewPager2.setAdapter(new FragmentAdapter(this));
+
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        switch (position){
+                            case 0:
+                                // Can add icons here by using parenthesis {tab.seticon}
+                                tab.setText("Fridge");
+//                                tab.setIcon(getResources().getDrawable(R.drawable.baseline_person_24));
+                                break;
+                            case 1:
+                                tab.setText("Freezer");
+                                break;
+                            case 2:
+                                tab.setText("Pantry");
+                                break;
+                        }
+                    }
+                });
+        tabLayoutMediator.attach();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+
+        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_menu);
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_home:{
+                        Toast.makeText(MainActivity.this, "Home button clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    case R.id.nav_user:{
+                        Toast.makeText(MainActivity.this, "User account button clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    case R.id.nav_settings:{
+                        Toast.makeText(MainActivity.this, "Settings button clicked", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    case R.id.nav_logout:{
+                        Toast.makeText(MainActivity.this, "Successfully logged out", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                break;
-
-            case R.id.nav_user:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserProfileFragment()).commit();
-                break;
-
-            case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
-                break;
-
-            case R.id.nav_logout:
-                Toast.makeText(this, "User logout button have clicked", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+                return false;
+            }
+        });
     }
 
     @Override

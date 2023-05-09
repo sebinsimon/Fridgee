@@ -8,27 +8,26 @@
     android:fitsSystemWindows="true"
     android:background="#dfeada"
     tools:openDrawer="start"
-    android:id="@+id/drawerLayout"
+    android:id="@+id/drawer_layout"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:id="@+id/container">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:id="@+id/toolbar"
-            android:elevation="4dp"
-            android:background="#b0b4b0"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            android:layout_height="wrap_content"
+            android:background="#C1CA9A"
+            android:id="@+id/tab_layout"/>
 
-        <FrameLayout
+        <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_container"/>
-    </LinearLayout>
+            android:id="@+id/view_pager"/>
+
+    </FrameLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -36,7 +35,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:id="@+id/nav_menu"
-        app:menu="@menu/nav_menu"
+        app:menu="@menu/main_menu"
         app:itemIconTint="#B2D59C"
         app:headerLayout="@layout/header_layout">
     </com.google.android.material.navigation.NavigationView>
