@@ -30,21 +30,21 @@
                 android:id="@+id/signupLabel"
                 android:text="Sign Up"
                 android:textStyle="bold"
-                android:textSize="36sp"
+                android:textSize="30sp"
                 android:textAlignment="center"
                 android:textColor="#7D8E7A"/>
 
             <ImageView
                 android:id="@+id/signup_profile_picture"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:background="@drawable/user_profile"
                 android:layout_marginTop="10dp"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/signup_full_name"
                 android:hint="Full Name"
                 android:inputType="textPersonName"
@@ -56,7 +56,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/signup_email"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
@@ -68,7 +68,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/signup_password"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -80,7 +80,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/signup_confirm_password"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
@@ -91,8 +91,8 @@
                 android:drawablePadding="8dp"/>
 
             <Button
-                android:layout_width="190dp"
-                android:layout_height="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/signup_button"
                 android:layout_gravity="center"
                 android:text="Signup"

@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -43,22 +44,19 @@ public class MainActivity extends AppCompatActivity {
         viewPager2.setAdapter(new FragmentAdapter(this));
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        switch (position){
-                            case 0:
-                                // Can add icons here by using parenthesis {tab.seticon}
-                                tab.setText("Fridge");
+                (tab, position) -> {
+                    switch (position){
+                        case 0:
+                            // Can add icons here by using parenthesis {tab.seticon}
+                            tab.setText("Fridge");
 //                                tab.setIcon(getResources().getDrawable(R.drawable.baseline_person_24));
-                                break;
-                            case 1:
-                                tab.setText("Freezer");
-                                break;
-                            case 2:
-                                tab.setText("Pantry");
-                                break;
-                        }
+                            break;
+                        case 1:
+                            tab.setText("Freezer");
+                            break;
+                        case 2:
+                            tab.setText("Pantry");
+                            break;
                     }
                 });
         tabLayoutMediator.attach();
@@ -93,10 +91,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.nav_user:{
+                        Intent userAc = new Intent(MainActivity.this, UserProfileActivity.class);
+                        startActivity(userAc);
                         Toast.makeText(MainActivity.this, "User account button clicked", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case R.id.nav_settings:{
+                        Intent settingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(settingsActivity);
                         Toast.makeText(MainActivity.this, "Settings button clicked", Toast.LENGTH_SHORT).show();
                         break;
                     }
