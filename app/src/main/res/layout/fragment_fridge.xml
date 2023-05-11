@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".FridgeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fridge Fragment"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_view_fridge"
+        android:layout_marginTop="12dp"
+        android:divider="@android:color/transparent"
+        tools:listitem="@layout/list_item"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

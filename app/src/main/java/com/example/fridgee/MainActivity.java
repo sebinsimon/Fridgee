@@ -10,19 +10,22 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewPager2 viewPager2;
-    TabLayout tabLayout;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    ActionBarDrawerToggle actionBarDrawerToggle;
+    private ViewPager2 viewPager2;
+    private TabLayout tabLayout;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private FloatingActionButton fabHome;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager2 = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tab_layout);
+        fabHome = findViewById(R.id.fab_home);
 
         viewPager2.setAdapter(new FragmentAdapter(this));
 
@@ -80,35 +84,41 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+//        App crash on this line of code in night mode
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.nav_home:{
-                        Toast.makeText(MainActivity.this, "Home button clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                    case R.id.nav_user:{
-                        Intent userAc = new Intent(MainActivity.this, UserProfileActivity.class);
-                        startActivity(userAc);
-                        Toast.makeText(MainActivity.this, "User account button clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                    case R.id.nav_settings:{
-                        Intent settingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
-                        startActivity(settingsActivity);
-                        Toast.makeText(MainActivity.this, "Settings button clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                    case R.id.nav_logout:{
-                        Toast.makeText(MainActivity.this, "Successfully logged out", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.nav_home:{
+                    Toast.makeText(MainActivity.this, "Home button clicked", Toast.LENGTH_SHORT).show();
+                    break;
                 }
+                case R.id.nav_user:{
+                    Intent userAc = new Intent(MainActivity.this, UserProfileActivity.class);
+                    startActivity(userAc);
+                    Toast.makeText(MainActivity.this, "User account button clicked", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                case R.id.nav_settings:{
+                    Intent settingsActivity = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(settingsActivity);
+                    Toast.makeText(MainActivity.this, "Settings button clicked", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                case R.id.nav_logout:{
+                    Toast.makeText(MainActivity.this, "Successfully logged out", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+            }
 
-                return false;
+            return false;
+        });
+
+        fabHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openAddItem = new Intent(MainActivity.this, AddItemActivity.class);
+                startActivity(openAddItem);
             }
         });
     }
