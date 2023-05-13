@@ -34,11 +34,11 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
 
             <ImageView
-                android:layout_width="180dp"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_add_a_photo_24"
                 android:id="@+id/upload_user_profile"
@@ -47,10 +47,19 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:id="@+id/upload_item_name"
+                android:background="@drawable/green_border"
+                android:paddingLeft="15dp"
+                android:hint="Item name:"
+                android:gravity="start|center_vertical"
+                android:layout_marginTop="5dp"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:id="@+id/upload_location"
                 android:background="@drawable/green_border"
                 android:paddingLeft="15dp"
-                android:hint="Location:"
                 android:gravity="start|center_vertical"
                 android:layout_marginTop="5dp"/>
 
@@ -60,7 +69,9 @@
                 android:id="@+id/upload_added_date"
                 android:background="@drawable/green_border"
                 android:paddingLeft="15dp"
+                android:focusable="false"
                 android:hint="Added on:"
+                android:inputType="date"
                 android:gravity="start|center_vertical"
                 android:layout_marginTop="5dp"/>
 
@@ -71,6 +82,8 @@
                 android:background="@drawable/green_border"
                 android:paddingLeft="15dp"
                 android:hint="Expire on:"
+                android:focusable="false"
+                android:inputType="date"
                 android:gravity="start|center_vertical"
                 android:layout_marginTop="5dp"/>
 
@@ -81,6 +94,8 @@
                 android:background="@drawable/green_border"
                 android:paddingLeft="15dp"
                 android:hint="Remind me on:"
+                android:focusable="false"
+                android:inputType="date"
                 android:gravity="start|center_vertical"
                 android:layout_marginTop="5dp"/>
 
