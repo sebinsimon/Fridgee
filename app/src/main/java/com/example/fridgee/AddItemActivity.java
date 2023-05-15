@@ -1,5 +1,4 @@
 package com.example.fridgee;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -15,18 +14,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +31,7 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -52,7 +48,6 @@ public class AddItemActivity extends AppCompatActivity {
     private DatePickerDialog picker;
     private static final String[] listLocation = {"Fridge", "Freezer", "Pantry"};
     Button saveButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,22 +99,16 @@ public class AddItemActivity extends AppCompatActivity {
             picker.show();
         });
 
+        addCamera.setOnClickListener( v -> cameraPermission());
 
-
-        addCamera.setOnClickListener( v -> {
-            cameraPermission();
-        });
-
-        saveButton.setOnClickListener( v -> {
-            uploadData();
-        });
+        saveButton.setOnClickListener( v -> uploadData());
 
     }
 
     private void uploadData() {
 
         String name = itemName.getText().toString();
-//        Get teh selected option from the spinner
+//        Get the selected option from the spinner
         String location = itemLocation.getSelectedItem().toString();
         String notes = itemNotes.getText().toString();
         String addDate = addedDate.getText().toString();
@@ -131,37 +120,46 @@ public class AddItemActivity extends AppCompatActivity {
 //        Get current logged in user
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Create a map of the item data.
-        Map<String, Object> itemData = new HashMap<>();
-        itemData.put("itemName", name);
-        itemData.put("itemLocation", location);
-        itemData.put("itemNotes", notes);
-        itemData.put("itemAddedDate", addDate);
-        itemData.put("itemExpiryDate", expiryDate);
-        itemData.put("itemReminderDate", reminder);
-        itemData.put("itemWeight", weight);
+        if (firebaseUser != null) {
+//            Get current user UID
+            String userId = firebaseUser.getUid();
+//            Get child node under Registered User
+            DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users").child(userId);
+
+            // Create a map of the item data.
+            Map<String, Object> itemData = new HashMap<>();
+            itemData.put("itemName", name);
+            itemData.put("itemLocation", location);
+            itemData.put("itemNotes", notes);
+            itemData.put("itemAddedDate", addDate);
+            itemData.put("itemExpiryDate", expiryDate);
+            itemData.put("itemReminderDate", reminder);
+            itemData.put("itemWeight", weight);
 
 
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-//       Write the item data to the database.
-        referenceProfile.child("items").push().setValue(itemData).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this, "Item successfully added", Toast.LENGTH_SHORT).show();
-                finish();
-            } else {
-                try {
-                    throw task.getException();
-                } catch (Exception e) {
-                    Toast.makeText(this, "Failed to added, try again later", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, e.getMessage());
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+            builder.setCancelable(false);
+            builder.setView(R.layout.progress_layout);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+//           Write the item data to the database.
+            referenceProfile.child("items").push().setValue(itemData).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "Item successfully added", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    finish();
+                } else {
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Failed to added, try again later", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, e.getMessage());
+                        dialog.dismiss();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
     private Uri createUri() {
@@ -185,6 +183,7 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                     catch (Exception exception) {
                         exception.getStackTrace();
+                        Log.e(TAG, exception.getMessage());
                     }
                 }
         );
@@ -208,6 +207,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
             else {
                 Toast.makeText(this, "Camera permission denied, permission required to take picture", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "User denied camera permission");
             }
         }
     }
