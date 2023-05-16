@@ -49,8 +49,10 @@
                 android:layout_height="45dp"
                 android:id="@+id/upload_item_name"
                 android:background="@drawable/green_border"
+                android:autofillHints="name"
                 android:paddingLeft="15dp"
                 android:hint="Item name:"
+                android:inputType="textCapSentences"
                 android:gravity="start|center_vertical"
                 android:layout_marginTop="5dp"/>
 
@@ -116,6 +118,7 @@
                 android:background="@drawable/green_border"
                 android:paddingLeft="15dp"
                 android:hint="Notes:"
+                android:inputType="textCapSentences"
                 android:gravity="start|center_vertical"
                 android:layout_marginTop="5dp"/>
 
