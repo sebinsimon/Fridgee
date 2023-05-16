@@ -126,24 +126,17 @@ public class AddItemActivity extends AppCompatActivity {
 //            Get child node under Registered User
             DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users").child(userId);
 
-            // Create a map of the item data.
-            Map<String, Object> itemData = new HashMap<>();
-            itemData.put("itemName", name);
-            itemData.put("itemLocation", location);
-            itemData.put("itemNotes", notes);
-            itemData.put("itemAddedDate", addDate);
-            itemData.put("itemExpiryDate", expiryDate);
-            itemData.put("itemReminderDate", reminder);
-            itemData.put("itemWeight", weight);
 
+            ListData listData = new ListData(name, addDate, expiryDate, reminder, location, notes, weight);
 
+//            Create alert progress bar
             AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
             builder.setCancelable(false);
             builder.setView(R.layout.progress_layout);
             AlertDialog dialog = builder.create();
             dialog.show();
 //           Write the item data to the database.
-            referenceProfile.child("items").push().setValue(itemData).addOnCompleteListener(task -> {
+            referenceProfile.child("items").push().setValue(listData).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Item successfully added", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
