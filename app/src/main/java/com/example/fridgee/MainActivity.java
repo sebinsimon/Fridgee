@@ -17,6 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private FloatingActionButton fabHome;
+    private FirebaseAuth authProfile;
+    private FirebaseUser currentUser;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.nav_logout:{
+                    userLogout();
                     Toast.makeText(MainActivity.this, "Successfully logged out", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -121,6 +126,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(openAddItem);
             }
         });
+    }
+
+    private void userLogout() {
+        authProfile = FirebaseAuth.getInstance();
+        currentUser = authProfile.getCurrentUser();
+        authProfile.signOut();
+        Intent openLogin = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(openLogin);
+        finish();
     }
 
     @Override

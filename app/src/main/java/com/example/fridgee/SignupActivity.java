@@ -118,13 +118,10 @@ public class SignupActivity extends AppCompatActivity {
 
         if (networkCapabilities == null || !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
             Snackbar snackbar = Snackbar.make(findViewById(R.id.signup_button), "No internet connection, registration failed", Snackbar.LENGTH_SHORT);
-            snackbar.setAction("Turn On Wifi", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Open the Wi-Fi settings
-                    Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                    startActivity(intent);
-                }
+            snackbar.setAction("Turn On Wifi", view -> {
+                // Open the Wi-Fi settings
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
             });
             snackbar.show();
         } else {
@@ -142,30 +139,28 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, "Successfully registered", Toast.LENGTH_SHORT).show();
                             FirebaseUser firebaseUser = auth.getCurrentUser();
 
+
                             ReadWriteUserDetails writeUserDetails = new  ReadWriteUserDetails(fullName);
 
 //                            Get user reference from firebase
                             DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
 //                            add data using user's unique id
-                            referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                            referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(task1 -> {
 
-                                    if (task.isSuccessful()){
-                                        firebaseUser.sendEmailVerification();
+                                if (task1.isSuccessful()){
+                                    firebaseUser.sendEmailVerification();
 
-                                        Intent openMain = new Intent(SignupActivity.this, MainActivity.class);
+                                    Intent openMain = new Intent(SignupActivity.this, MainActivity.class);
 //                                       Prevent user returning to signup activity
-                                        openMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(openMain);
-                                        finish();
-                                    } else {
-                                        try {
-                                            throw task.getException();
-                                        } catch (Exception e) {
-                                            Toast.makeText(SignupActivity.this, "Verification failed, try again later", Toast.LENGTH_SHORT).show();
-                                            Log.e(TAG, e.getMessage());
-                                        }
+                                    openMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(openMain);
+                                    finish();
+                                } else {
+                                    try {
+                                        throw task1.getException();
+                                    } catch (Exception e) {
+                                        Toast.makeText(SignupActivity.this, "Verification failed, try again later", Toast.LENGTH_SHORT).show();
+                                        Log.e(TAG, e.getMessage());
                                     }
                                 }
                             });
