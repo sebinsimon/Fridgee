@@ -8,10 +8,16 @@ public class ListData {
     String location;
     String weight;
     String notes;
+    String image;
+    String key;
 
-//    int image;
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-
+    public String getKey() {
+        return key;
+    }
     public String getName() {
         return name;
     }
@@ -40,7 +46,11 @@ public class ListData {
         return notes;
     }
 
-    public ListData(String name, String date, String expiryDate, String remDate, String loc, String note, String weights) {
+    public String getImage() {
+        return image;
+    }
+
+    public ListData(String name, String date, String expiryDate, String remDate, String loc, String note, String weights, String images) {
         this.name = name;
         this.addDate = date;
         this.expireDate = expiryDate;
@@ -48,6 +58,7 @@ public class ListData {
         this.location = loc;
         this.notes = note;
         this.weight = weights;
+        this.image = images;
     }
 //   No-argument constructor
     public ListData() {

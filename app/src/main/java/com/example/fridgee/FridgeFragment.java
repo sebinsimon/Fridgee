@@ -8,12 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,11 +27,11 @@ import java.util.List;
 
 public class FridgeFragment extends Fragment {
 
-     RecyclerView recyclerView;
-     List<ListData> dataList;
-     DatabaseReference databaseReference;
-     ValueEventListener eventListener;
-     FirebaseAuth firebaseAuth;
+     private RecyclerView recyclerView;
+     private List<ListData> dataList;
+     private DatabaseReference databaseReference;
+     private ValueEventListener eventListener;
+     private FirebaseAuth firebaseAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +72,10 @@ public class FridgeFragment extends Fragment {
                 dataList.clear();
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
                     ListData listData = itemSnapshot.getValue(ListData.class);
-                    dataList.add(listData);
+                    listData.setKey(itemSnapshot.getKey());
+                    if (listData.getLocation().equals("Fridge")) {
+                        dataList.add(listData);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();

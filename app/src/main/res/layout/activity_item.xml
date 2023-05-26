@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ItemActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,14 +101,40 @@
         android:textStyle="bold"
         android:paddingLeft="15dp"
         android:layout_marginTop="10dp"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/add_item_button"
+    <com.github.clans.fab.FloatingActionMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:minHeight="48dp"
-        android:text="Edit" />
+        app:menu_fab_size="normal"
+        app:menu_colorPressed="@color/black"
+        app:menu_colorNormal="#ACC154"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        app:menu_openDirection="up"
+        app:menu_showShadow="true"
+        app:menu_icon="@drawable/baseline_format_list_bulleted_24">
 
-</LinearLayout>
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_Button"
+            android:src="@drawable/baseline_delete_24"
+            app:fab_showShadow="true"
+            app:fab_colorNormal="#ED4646"
+            app:fab_size="mini"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_Button"
+            android:src="@drawable/baseline_edit_24"
+            app:fab_showShadow="true"
+            app:fab_colorNormal="#9DA645"
+            app:fab_size="mini"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+</RelativeLayout>

@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="80dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
@@ -41,7 +43,7 @@
                 android:id="@+id/upload_user_profile"
                 android:layout_marginTop="20dp"/>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:id="@+id/user_full_name"
@@ -50,9 +52,9 @@
                 android:hint="Full Name"
                 android:inputType="textPersonName"
                 android:gravity="start|center_vertical"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="30dp"/>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:id="@+id/user_email_id"
@@ -61,28 +63,9 @@
                 android:padding="10dp"
                 android:hint="Email ID"
                 android:gravity="start|center_vertical"
-                android:layout_marginTop="15dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:id="@+id/user_password"
-                android:background="@drawable/green_border"
-                android:padding="10dp"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:gravity="start|center_vertical"
-                android:layout_marginTop="15dp"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit_button"
-                android:text="Edit"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp"
-                android:padding="10dp"
-                app:cornerRadius="15dp"/>
+                android:layout_marginBottom="40dp"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

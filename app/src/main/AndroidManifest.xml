@@ -4,8 +4,15 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -19,6 +26,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fridgee"
         tools:targetApi="31">
+
+        <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id"
+        android:value="notification_channel" />
+
+        <activity
+            android:name=".UpdateActivity"
+            android:exported="false" />
         <activity
             android:name=".ItemActivity"
             android:exported="false" />
@@ -54,16 +69,17 @@
         </activity>
 
         <provider
-            android:authorities="com.example.fridgee.camera_permission.fileProvider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.fridgee.camera_permission.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-
+        <receiver android:name=".ReminderBroadcast"
+                  android:enabled="true"
+                  android:exported="true"/>
     </application>
 
 </manifest>

@@ -58,6 +58,6 @@ public class ReadWriteUserDetails {
 //    public void setReminderDate(Date reminderDate) {
 //        this.reminderDate = reminderDate;
 //    }
-
-
+//
+//
 }

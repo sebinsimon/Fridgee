@@ -87,25 +87,6 @@
                 android:textSize="16dp"
                 android:padding="9dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/login_Google"
-                android:text="Login with"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:layout_marginTop="35dp"
-                android:textAlignment="center"
-                android:textColor="#7D8E7A"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/empty"
-                android:text="Google Sign-in"
-                android:layout_gravity="center"
-                android:textSize="16dp"
-                android:padding="9dp"/>
 
         </LinearLayout>
 

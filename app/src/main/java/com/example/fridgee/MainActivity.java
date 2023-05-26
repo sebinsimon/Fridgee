@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_logout:{
                     userLogout();
                     Toast.makeText(MainActivity.this, "Successfully logged out", Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
                 }
             }

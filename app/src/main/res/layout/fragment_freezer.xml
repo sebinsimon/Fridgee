@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".FreezerFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Freezer Fragment"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_view_freezer"
+        android:layout_marginTop="50dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        tools:listitem="@layout/recycler_item"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>
